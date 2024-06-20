@@ -49,22 +49,22 @@ pipeline {
             steps {
                 script {
                     // Clean and rebuild with coverage flags
-                    sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage" ..'
-                    sh 'cd build && make clean && make'
+                //    sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage" ..'
+               //     sh 'cd build && make clean && make'
 
                     // Ensure coverage_report directory exists
-                    sh 'mkdir -p coverage_report'
+                 //   sh 'mkdir -p coverage_report'
 
                     // Generate coverage reports using gcovr
-                    sh '''
-                    cd build
-                    gcovr --root .. --html coverage_report/coverage.html
-                    '''
+                  //  sh '''
+                //    cd build
+                //    gcovr --root .. --html coverage_report/coverage.html
+                 //   '''
 
                     // Publish HTML report in Jenkins
                     publishHTML(target: [
                         reportName: 'Code Coverage',
-                        reportDir: 'build/coverage_report',
+                        reportDir: 'build/coverage',
                         alwaysLinkToLastBuild: true,
                         keepAll: true
                     ])
