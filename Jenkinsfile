@@ -65,6 +65,7 @@ pipeline {
                     publishHTML(target: [
                         reportName: 'Code Coverage',
                         reportDir: 'coverage_report',
+                        reportFiles: 'coverage.html',
                         alwaysLinkToLastBuild: true,
                         keepAll: true
                     ])
