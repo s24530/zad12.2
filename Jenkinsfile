@@ -52,6 +52,9 @@ pipeline {
                     sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage" ..'
                     sh 'cd build && make clean && make'
 
+                    // Ensure coverage_report directory exists
+                    sh 'mkdir -p coverage_report'
+
                     // Generate coverage reports using gcovr
                     sh '''
                     cd build
@@ -68,8 +71,7 @@ pipeline {
                 }
             }
         }
-
-
+        
         stage('Static Code Analysis') {
             steps {
                 sh 'cppcheck --enable=all --xml . 2> cppcheck.xml'
