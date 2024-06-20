@@ -46,16 +46,21 @@ pipeline {
 
         stage('Code Coverage') {
             steps {
-                sh 'cd build && gcov *.cpp'
-                publishHTML(target: [
-                    reportName: 'Code Coverage',
-                    reportDir: 'build',
-                    reportFiles: 'coverage.html',
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true
-                ])
+                script {
+                    sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug . && make clean && make'
+                    sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug . && make clean && make'
+                    sh 'cd build && gcovr -r .. --html --html-details -o coverage.html'
+                    publishHTML(target: [
+                        reportName: 'Code Coverage',
+                        reportDir: 'build',
+                        reportFiles: 'coverage.html',
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true
+                    ])
+                }
             }
         }
+
 
         stage('Static Code Analysis') {
             steps {
