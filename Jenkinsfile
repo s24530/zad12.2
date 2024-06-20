@@ -28,7 +28,7 @@ pipeline {
                 sh 'sudo apt-get install -y gcovr'
                  sh 'sudo apt-get install -y cppcheck'
                 sh '''
-                wget http://<sonarqube-server>/static/cpp/build-wrapper-linux-x86.zip
+                wget http://sonarqube:9000/static/cpp/build-wrapper-linux-x86.zip
                 unzip build-wrapper-linux-x86.zip
                 mv build-wrapper-linux-x86 /opt/build-wrapper
                 ln -s /opt/build-wrapper/build-wrapper-linux-x86-64 /usr/bin/build-wrapper-linux-x86-64
