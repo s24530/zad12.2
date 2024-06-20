@@ -25,8 +25,6 @@ pipeline {
                 sudo cp googletest/lib/libgtest.a googletest/lib/libgtest_main.a /usr/lib
                 '''
                 // Install gcovr
-                sh 'sudo apt-get install -y python3-pip'
-                sh 'pip3 install gcovr'
             }
         }
 
