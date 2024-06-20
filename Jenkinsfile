@@ -27,7 +27,8 @@ pipeline {
                 // Install gcovr
                 sh 'sudo apt-get install -y gcovr'
                  sh 'sudo apt-get install -y cppcheck'
-            
+            def scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    env.PATH = "${scannerHome}/bin:${env.PATH}"
 
             }
         }
