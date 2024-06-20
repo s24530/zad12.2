@@ -15,36 +15,34 @@ pipeline {
 
         stage('Setup Build Environment') {
             steps {
-                script {
-                    sh 'sudo apt-get update'
-                    sh 'sudo apt-get install -y build-essential cmake g++ libgtest-dev python3-pip'
-                    
-                    // Install gcovr using pip within a virtual environment
-                    sh '''
-                        python3 -m venv venv
-                        . venv/bin/activate
-                        pip install gcovr
-                    '''
-                }
+                sh 'sudo apt-get update'
+                sh 'sudo apt-get install -y build-essential cmake g++'
+                sh 'sudo apt-get install -y libgtest-dev'
+                sh '''
+                cd /usr/src/googletest
+                sudo cmake .
+                sudo make
+                sudo cp googletest/lib/libgtest.a googletest/lib/libgtest_main.a /usr/lib
+                '''
+                // Install gcovr
+                sh 'sudo apt-get install -y python3-pip'
+                sh 'pip3 install gcovr'
             }
         }
-        
+
         stage('Build') {
             steps {
-                script {
-                    // Example build commands
-                    sh 'cmake .'
+                sh 'mkdir -p build'
+                dir('build') {
+                    sh 'cmake ..'
                     sh 'make'
                 }
             }
         }
-        
+
         stage('Run Unit Tests') {
             steps {
-                script {
-                    // Example unit test commands
-                    sh 'ctest'
-                }
+                sh 'cd build && make test'
             }
         }
 
