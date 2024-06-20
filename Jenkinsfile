@@ -49,11 +49,15 @@ pipeline {
                 script {
                     sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug . && make clean && make'
                     sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug . && make clean && make'
-                    sh 'cd build && gcovr -r .. --html --html-details -o coverage.html'
+                    sh '''
+                    cd build
+                    gcov *.cpp
+                    lcov --capture --directory . --output-file coverage.info
+                    genhtml coverage.info --output-directory coverage_report
+                    '''
                     publishHTML(target: [
                         reportName: 'Code Coverage',
-                        reportDir: 'build',
-                        reportFiles: 'coverage.html',
+                        reportDir: 'build/coverage_report',
                         alwaysLinkToLastBuild: true,
                         keepAll: true
                     ])
