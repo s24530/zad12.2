@@ -85,7 +85,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('Local SonarQube') {
-                    sh 'build-wrapper-linux-x86-64 --out-dir bw-output make clean all'
+                    //sh 'build-wrapper-linux-x86-64 --out-dir bw-output make clean all'
                     sh 'sonar-scanner -Dsonar.projectKey=cpp-calculator -Dsonar.sources=. -Dsonar.host.url=${env.SONARQUBE_SERVER_URL} -Dsonar.login=${env.SONARQUBE_CREDENTIALS}'
                 }
             }
