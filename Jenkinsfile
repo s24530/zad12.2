@@ -45,25 +45,26 @@ pipeline {
         }
 
         stage('Code Coverage') {
-            steps {
-                script {
-                    sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug . && make clean && make'
-                    sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug . && make clean && make'
-                    sh '''
-                    cd build
-                    gcov *.cpp
-                    lcov --capture --directory . --output-file coverage.info
-                    genhtml coverage.info --output-directory coverage_report
-                    '''
-                    publishHTML(target: [
-                        reportName: 'Code Coverage',
-                        reportDir: 'build/coverage_report',
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true
-                    ])
-                }
-            }
+    steps {
+        script {
+            // Clean and rebuild with coverage flags
+            sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage" ..'
+            sh 'cd build && make clean && make'
+
+            // Generate coverage reports
+            sh 'cd build && gcovr --root .. --html --output coverage.html'
+
+            // Publish HTML report in Jenkins
+            publishHTML(target: [
+                reportName: 'Code Coverage',
+                reportDir: 'build',
+                reportFiles: 'coverage.html',
+                alwaysLinkToLastBuild: true,
+                keepAll: true
+            ])
         }
+    }
+}
 
 
         stage('Static Code Analysis') {
