@@ -46,7 +46,7 @@ pipeline {
 
         stage('Code Coverage') {
             steps {
-                sh 'cd build && gcov -o . *.cpp'
+                sh 'cd build && gcov *.cpp'
                 publishHTML(target: [
                     reportName: 'Code Coverage',
                     reportDir: 'build',
