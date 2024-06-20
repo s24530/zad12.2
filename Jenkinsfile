@@ -75,6 +75,7 @@ pipeline {
         
         stage('Static Code Analysis') {
             steps {
+                sh 'cppcheck --version'
                 sh 'cppcheck --enable=all --xml . 2> cppcheck.xml'
                 recordIssues tools: [cppCheck(pattern: 'cppcheck.xml')]
             }
