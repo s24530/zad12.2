@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SONARQUBE_SERVER_URL = 'http://sonarqube:9000'
-        SONARQUBE_CREDENTIALS = 'f0ec58ab-4759-4294-8ab2-6a59030a7035' // Replace with your SonarQube token ID from Jenkins credentials
+        SONARQUBE_CREDENTIALS = 'sqa_04210127508e2aa63c7b5ec561e70893c2ad7da5' // Replace with your SonarQube token ID from Jenkins credentials
     }
 
     stages {
@@ -95,7 +95,7 @@ pipeline {
                   //  build-wrapper-linux-x86-64 --out-dir bw-output make clean all
                   //  '''
          
-                        sh "sonar-scanner -Dsonar.projectKey=cpp-calculator -Dsonar.sources=. -Dsonar.host.url=${env.SONARQUBE_SERVER_URL} -Dsonar.login=${env.SONARQUBE_CREDENTIALS}"
+                        sh "sonar-scanner -Dsonar.projectKey=cpp-calculator -Dsonar.sources=. -Dsonar.host.url=${env.SONARQUBE_SERVER_URL} -Dsonar.login=admin -Dsonar.password=admin1"
                 }
             }
         }
