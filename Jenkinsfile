@@ -52,12 +52,10 @@ pipeline {
                     sh 'cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage" ..'
                     sh 'cd build && make clean && make'
 
-                    // Generate coverage reports using gcov
+                    // Generate coverage reports using gcovr
                     sh '''
                     cd build
-                    gcov *.cpp
-                    lcov --capture --directory . --output-file coverage.info
-                    genhtml coverage.info --output-directory coverage_report
+                    gcovr --root .. --html --output coverage_report/coverage.html
                     '''
 
                     // Publish HTML report in Jenkins
