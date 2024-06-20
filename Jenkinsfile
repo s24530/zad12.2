@@ -26,6 +26,7 @@ pipeline {
                 '''
                 // Install gcovr
                 sh 'sudo apt-get install -y gcovr'
+                 sh 'sudo apt-get install -y cppcheck'
             }
         }
 
