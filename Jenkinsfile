@@ -90,13 +90,12 @@ pipeline {
                    // sh '''
                   //  build-wrapper-linux-x86-64 --out-dir bw-output make clean all
                   //  '''
-                   sh ''' 
-                    sonar-scanner \
-                      -Dsonar.projectKey=cpp-calculator \
-                      -Dsonar.sources=. \
-                      -Dsonar.host.url=${SONARQUBE_SERVER_URL} \
-                      -Dsonar.login=${SONARQUBE_CREDENTIALS}
-                    '''
+                   def scannerHome = tool 'SonarScanner'; // Ensure this matches the tool name configured in Global Tool Configuration
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=cpp-calculator \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=${env.SONARQUBE_SERVER_URL} \
+                            -Dsonar.login=${env.SONARQUBE_CREDENTIALS}"
                 }
             }
         }
