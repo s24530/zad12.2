@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SONARQUBE_SERVER_URL = 'http://sonarqube:9000'
-        SONARQUBE_CREDENTIALS = 'sonar-token' // Replace with your SonarQube token ID from Jenkins credentials
+        SONARQUBE_CREDENTIALS = 'sqa_f28241f0490ca57c0fc1e31b024af1a3a46c6f54' // Replace with your SonarQube token ID from Jenkins credentials
     }
 
     stages {
@@ -22,8 +22,11 @@ pipeline {
                 cd /usr/src/googletest
                 sudo cmake .
                 sudo make
-                sudo cp googletest/lib/*.a /usr/lib
+                sudo cp googletest/lib/libgtest.a googletest/lib/libgtest_main.a /usr/lib
                 '''
+                // Install gcovr
+                sh 'sudo apt-get install -y python3-pip'
+                sh 'pip3 install gcovr'
             }
         }
 
