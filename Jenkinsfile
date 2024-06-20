@@ -58,7 +58,7 @@ pipeline {
                     // Generate coverage reports using gcovr
                     sh '''
                     cd build
-                    gcovr --root .. --html coverage_report/coverage.html
+                    gcovr --root .. --html ../coverage_report/coverage.html
                     '''
 
                     // Publish HTML report in Jenkins
