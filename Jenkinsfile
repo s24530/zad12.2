@@ -17,6 +17,8 @@ pipeline {
             steps {
                 sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y build-essential cmake g++'
+                sh 'sudo apt-get install -y libgtest-dev'
+                sh 'cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp *.a /usr/lib'
             }
         }
 
