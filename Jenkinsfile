@@ -54,8 +54,7 @@ pipeline {
                     // Generate coverage reports using gcov
                     sh '''
                     cd build
-                    rm -f *.gcov *.gcda *.gcno
-                    gcov ../*.cpp
+                    gcov *.cpp
                     lcov --capture --directory . --output-file coverage.info
                     genhtml coverage.info --output-directory coverage_report
                     '''
