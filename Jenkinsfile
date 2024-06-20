@@ -64,7 +64,7 @@ pipeline {
                     // Publish HTML report in Jenkins
                     publishHTML(target: [
                         reportName: 'Code Coverage',
-                        reportDir: 'coverage/index.html',
+                        reportDir: 'build/coverage/index.html',
                         alwaysLinkToLastBuild: true,
                         keepAll: true
                     ])
