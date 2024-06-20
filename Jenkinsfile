@@ -3,13 +3,13 @@ pipeline {
 
     environment {
         SONARQUBE_SERVER_URL = 'http://sonarqube:9000'
-        SONARQUBE_CREDENTIALS = 'sqa_f28241f0490ca57c0fc1e31b024af1a3a46c6f54' // Replace with your SonarQube token ID from Jenkins credentials
+        SONARQUBE_CREDENTIALS = 'sonar-token' // Replace with your SonarQube token ID from Jenkins credentials
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/s24530/zad12.2' // Replace with your repository URL
+                git 'https://github.com/s24530/zad12.2.git' // Replace with your repository URL
             }
         }
 
@@ -18,7 +18,12 @@ pipeline {
                 sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y build-essential cmake g++'
                 sh 'sudo apt-get install -y libgtest-dev'
-                sh 'cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp *.a /usr/lib'
+                sh '''
+                cd /usr/src/googletest
+                sudo cmake .
+                sudo make
+                sudo cp googletest/lib/*.a /usr/lib
+                '''
             }
         }
 
