@@ -91,8 +91,7 @@ pipeline {
 
     post {
         always {
-            junit 'build/test-results/*.xml'
-            archiveArtifacts artifacts: 'build/*.o', allowEmptyArchive: true
+            echo 'This will always run'
         }
     }
 }
