@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SONARQUBE_SERVER_URL = 'http://sonarqube:9000'
-        SONARQUBE_CREDENTIALS = 'sqa_f28241f0490ca57c0fc1e31b024af1a3a46c6f54' // Replace with your SonarQube token ID from Jenkins credentials
+        SONARQUBE_CREDENTIALS = credentials('e983ee2d-0ad7-4249-9ab2-d98ad4da4eee') // Replace with your SonarQube token ID from Jenkins credentials
     }
 
     stages {
@@ -87,8 +87,10 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('Local SonarQube') {
-                    sh '''
-                    build-wrapper-linux-x86-64 --out-dir bw-output make clean all
+                   // sh '''
+                  //  build-wrapper-linux-x86-64 --out-dir bw-output make clean all
+                  //  '''
+                   sh ''' 
                     sonar-scanner \
                       -Dsonar.projectKey=cpp-calculator \
                       -Dsonar.sources=. \
